@@ -9,9 +9,9 @@ class Data {
 	public:
 	
 	/*
-	O método abaixo retornará -1 se d1 é anterior a d2
-	Retornará 0 se d1 = d2
-	Retornará +1 se d1 é posterior a d2
+	O mï¿½todo abaixo retornarï¿½ -1 se d1 ï¿½ anterior a d2
+	Retornarï¿½ 0 se d1 = d2
+	Retornarï¿½ +1 se d1 ï¿½ posterior a d2
 	*/	
 	static int compara(Data d1, Data d2) { 
 		return 0;
@@ -41,21 +41,38 @@ class Lista {
 	virtual void mostraMaior() =0;
 };
 
-class ListaNomes {
-	vector<string> lista;
+class ListaNomes : public Lista{
+	vector<string> listaNomes;
 	
 	public:
 	
 	/*
-	O método abaixo pergunta ao usuários quantos
-	elementos vão existir na lista e depois
-	solicita a digitação de cada um deles
+	O mï¿½todo abaixo pergunta ao usuï¿½rios quantos
+	elementos vï¿½o existir na lista e depois
+	solicita a digitaï¿½ï¿½o de cada um deles
 	*/	
+
 	void entradaDeDados() {
-		lista.push_back("Teste");
+		int qtd;
+
+		cout << "Informe a quantidades de nomes : " << endl;
+		cin >> qtd;
+		cin.ignore();
+
+		for(int i = 0; i < qtd; i++ ){
+			string nome;
+			cout << "Informe o nome numero " << i + 1 << ": ";
+			getline(cin,nome);
+			listaNomes.push_back(nome);
+			nome = "";
+		}
 	}
 		
+
 	void mostraMediana() {
+		for( auto item : listaNomes){
+			
+		}
 		cout << "Aqui vai mostrar a mediana da lista de strings" << endl;
 	}
 	
@@ -73,9 +90,9 @@ class ListaDatas  {
 	public:
 		
 	/*
-	O método abaixo pergunta ao usuários quantos
-	elementos vão existir na lista e depois
-	solicita a digitação de cada um deles
+	O mï¿½todo abaixo pergunta ao usuï¿½rios quantos
+	elementos vï¿½o existir na lista e depois
+	solicita a digitaï¿½ï¿½o de cada um deles
 	*/	
 	void entradaDeDados() {
 		
@@ -99,9 +116,9 @@ class ListaSalarios  {
 	public:
 	
 	/*
-	O método abaixo pergunta ao usuários quantos
-	elementos vão existir na lista e depois
-	solicita a digitação de cada um deles
+	O mï¿½todo abaixo pergunta ao usuï¿½rios quantos
+	elementos vï¿½o existir na lista e depois
+	solicita a digitaï¿½ï¿½o de cada um deles
 	*/	
 	void entradaDeDados() {
 		
@@ -126,9 +143,9 @@ class ListaIdades  {
 	public:
 		
 		/*
-	O método abaixo pergunta ao usuários quantos
-	elementos vão existir na lista e depois
-	solicita a digitação de cada um deles
+	O mï¿½todo abaixo pergunta ao usuï¿½rios quantos
+	elementos vï¿½o existir na lista e depois
+	solicita a digitaï¿½ï¿½o de cada um deles
 	*/	
 	void entradaDeDados() {
 		
@@ -153,17 +170,17 @@ int main () {
 	listaNomes.entradaDeDados();
 	listaDeListas.push_back(&listaNomes);
 	
-	ListaDatas listaDatas;
-	listaDatas.entradaDeDados();
-	listaDeListas.push_back(&listaDatas);
+	// ListaDatas listaDatas;
+	// listaDatas.entradaDeDados();
+	// listaDeListas.push_back(&listaDatas);
 	
-	ListaSalarios listaSalarios;
-	listaSalarios.entradaDeDados();
-	listaDeListas.push_back(&listaSalarios);
+	// ListaSalarios listaSalarios;
+	// listaSalarios.entradaDeDados();
+	// listaDeListas.push_back(&listaSalarios);
 	
-	ListaIdades listaIdades;
-	listaIdades.entradaDeDados();
-	listaDeListas.push_back(&listaIdades);
+	// ListaIdades listaIdades;
+	// listaIdades.entradaDeDados();
+	// listaDeListas.push_back(&listaIdades);
 	
 	for (Lista* l : listaDeListas) {
 		l->mostraMediana();
