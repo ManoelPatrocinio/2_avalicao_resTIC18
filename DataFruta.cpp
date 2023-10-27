@@ -62,10 +62,8 @@ public:
 	virtual void mostraMediana() = 0;
 	virtual void mostraMenor() = 0;
 	virtual void mostraMaior() = 0;
-
-
-
-	
+	virtual void listaN(int N) = 0;
+	virtual void listarEmOrdem();
 
 	
 };
@@ -139,6 +137,29 @@ public:
 		advance(it, qtd - 1);
 		cout << "O ultimo nome da lista alfabeticamente: " << *it << endl;
 	}
+
+	void listaN (int N) override{
+		int count = 0;
+		for (auto it= listaNomes.begin();it != listaNomes.end(); it++){
+			count += 1;
+			if (count <= N){
+				cout << *it <<endl;
+
+			}else{
+				return;
+			}
+		}
+		
+	}
+	void listaControlada (){
+		qtd = 0;
+		cout << "informe quantos itens deseja exibir: ";
+		cin >> qtd;
+
+		cout << endl << endl;
+		listaN(qtd);
+	
+	}
 };
 
 class ListaDatas : public Lista
@@ -194,7 +215,32 @@ public:
 	void mostraMaior()
 	{
 		sort(listaDatas.begin(), listaDatas.end());
-		cout << "A ultima data cronologicamente: " << listaDatas[listaDatas.size() - 1].toString() << endl;
+		cout << "aqui vai mostrar a ultima data cronologicamente: " << listaDatas[listaDatas.size() - 1].toString() << endl;
+	}
+
+
+	void listaN (int N) override{
+		int count = 0;
+		for (auto it= listaDatas.begin();it != listaDatas.end(); it++){
+			count += 1;
+			if (count <= N){
+				cout << it->toString() <<endl;
+
+			}else{
+				return;
+			}
+
+		}
+		
+	}
+	void listaControlada (){
+		int qtd = 0;
+		cout << "informe quantos itens deseja exibir: ";
+		cin >> qtd;
+		cout << endl << endl;
+
+		listaN(qtd);
+	
 	}
 };
 
@@ -263,10 +309,13 @@ int main()
 	ListaNomes listaNomes;
 	listaNomes.entradaDeDados();
 	listaDeListas.push_back(&listaNomes);
+	listaNomes.listaControlada();
 
 	ListaDatas listaDatas;
 	listaDatas.entradaDeDados();
 	listaDeListas.push_back(&listaDatas);
+	listaDatas.listaControlada();
+
 
 	// ListaSalarios listaSalarios;
 	// listaSalarios.entradaDeDados();
@@ -275,12 +324,14 @@ int main()
 	// ListaIdades listaIdades;
 	// listaIdades.entradaDeDados();
 	// listaDeListas.push_back(&listaIdades);
+	cout << endl << "--- Listagem geral ---" <<endl;
 
 	for (Lista *l : listaDeListas)
 	{
-		cout << endl << endl;
+		cout << endl ;
 		l->mostraMediana();
 		l->mostraMenor();
 		l->mostraMaior();
+		
 	}
 }
