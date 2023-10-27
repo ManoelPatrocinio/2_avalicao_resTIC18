@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <vector>
+#include <algorithm>
+#include <sstream>
 
 using namespace std;
 
@@ -9,9 +12,9 @@ class Data {
 	public:
 	
 	/*
-	O método abaixo retornará -1 se d1 é anterior a d2
-	Retornará 0 se d1 = d2
-	Retornará +1 se d1 é posterior a d2
+	O mï¿½todo abaixo retornarï¿½ -1 se d1 ï¿½ anterior a d2
+	Retornarï¿½ 0 se d1 = d2
+	Retornarï¿½ +1 se d1 ï¿½ posterior a d2
 	*/	
 	static int compara(Data d1, Data d2) { 
 		return 0;
@@ -47,9 +50,9 @@ class ListaNomes {
 	public:
 	
 	/*
-	O método abaixo pergunta ao usuários quantos
-	elementos vão existir na lista e depois
-	solicita a digitação de cada um deles
+	O mï¿½todo abaixo pergunta ao usuï¿½rios quantos
+	elementos vï¿½o existir na lista e depois
+	solicita a digitaï¿½ï¿½o de cada um deles
 	*/	
 	void entradaDeDados() {
 		lista.push_back("Teste");
@@ -73,9 +76,9 @@ class ListaDatas  {
 	public:
 		
 	/*
-	O método abaixo pergunta ao usuários quantos
-	elementos vão existir na lista e depois
-	solicita a digitação de cada um deles
+	O mï¿½todo abaixo pergunta ao usuï¿½rios quantos
+	elementos vï¿½o existir na lista e depois
+	solicita a digitaï¿½ï¿½o de cada um deles
 	*/	
 	void entradaDeDados() {
 		
@@ -93,26 +96,61 @@ class ListaDatas  {
 	}
 };
 
-class ListaSalarios  {
+class ListaSalarios : public Lista {
 	vector<float> lista;
 	
 	public:
+	int qtd;
 	
 	/*
-	O método abaixo pergunta ao usuários quantos
-	elementos vão existir na lista e depois
-	solicita a digitação de cada um deles
+	O mï¿½todo abaixo pergunta ao usuï¿½rios quantos
+	elementos vï¿½o existir na lista e depois
+	solicita a digitaï¿½ï¿½o de cada um deles
 	*/	
 	void entradaDeDados() {
-		
+		cout << "Informe a quantidades de salarios : " << endl;
+		cin >> qtd;
+		cin.ignore();
+
+		for (int i = 0; i < qtd; i++)
+		{
+			float salario;
+			cout << "Informe o salario numero: " << i + 1 << ": ";
+			cin >> salario;
+			lista.push_back(salario);
+			
+		}
+
 	}
 			
 	void mostraMediana() {
 		cout << "Aqui vai mostrar a mediana da lista de salarios" << endl;
+		if (lista.size() % 2 == 0)
+		{
+			sort(lista.begin(), lista.end());
+
+			vector<float>::iterator it;
+			it = lista.begin();
+			advance(it, (lista.size() / 2) - 1);
+
+			cout << "A mediana da lista de strings: " << *it << endl;
+		}
+		else
+		{
+			sort(lista.begin(), lista.end());
+			vector<float>::iterator it;
+			it = lista.begin();
+			advance(it, (lista.size() / 2));
+
+			cout << "A mediana da lista de salarios Ã©: " << *it << endl;
+		}
+
 	}
 	
 	void mostraMenor() {
 		cout << "Aqui vai mostrar o menor dos salarios" << endl;
+
+		
 	}
 	void mostraMaior() {
 		cout << "aqui vai mostrar o maior dos salarios" << endl;
@@ -126,9 +164,9 @@ class ListaIdades  {
 	public:
 		
 		/*
-	O método abaixo pergunta ao usuários quantos
-	elementos vão existir na lista e depois
-	solicita a digitação de cada um deles
+	O mï¿½todo abaixo pergunta ao usuï¿½rios quantos
+	elementos vï¿½o existir na lista e depois
+	solicita a digitaï¿½ï¿½o de cada um deles
 	*/	
 	void entradaDeDados() {
 		
@@ -145,7 +183,7 @@ class ListaIdades  {
 		cout << "aqui vai mostrar a maior das idades" << endl;
 	}
 };
- 
+
 int main () {
 	vector<Lista*> listaDeListas;
 	
@@ -170,6 +208,8 @@ int main () {
 		l->mostraMenor();
 		l->mostraMaior();
 	}
+	..
+
 	
 }
     
