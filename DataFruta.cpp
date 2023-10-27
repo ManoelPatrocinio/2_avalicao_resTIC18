@@ -22,73 +22,39 @@ void bubbleSort(vector<string> &arr)
 	}
 }
 
-class Data
-{
-	int dia, mes, ano;
+class Data {
+private:
+    int dia, mes, ano;
 
 public:
-	/*
-	O m�todo abaixo retornar� -1 se d1 � anterior a d2
-	Retornar� 0 se d1 = d2
-	Retornar� +1 se d1 � posterior a d2
-	*/
-	static int compara(Data d1, Data d2)
-	{
+    Data(int _dia, int _mes, int _ano) : dia(_dia), mes(_mes), ano(_ano) {}
 
-		if (d1.ano < d2.ano)
-		{
-			return -1;
-		}
-		else if (d1.ano == d2.ano)
-		{
-			if (d1.mes < d2.mes)
-			{
-				return -1;
-			}
-			else if (d1.mes == d2.mes)
-			{
-				if (d1.dia < d2.dia)
-				{
-					return -1;
-				}
-				else if (d1.dia == d2.dia)
-				{
-					return 0;
-				}
-				else
-				{
-					return 1;
-				}
-			}
-			else
-			{
-				return 1;
-			}
-		}
-		else
-		{
-			return 1;
-		}
-	}
+    string toString() const {
+        string ret = "";
+        ret.append(to_string(dia));
+        ret.append("/");
+        ret.append(to_string(mes));
+        ret.append("/");
+        ret.append(to_string(ano));
+        return ret;
+    }
 
-	Data(int _dia, int _mes, int _ano)
-	{
-		dia = _dia;
-		mes = _mes;
-		ano = _ano;
-	}
-	string toString()
-	{
-		string ret = "";
-		ret.append(to_string(dia));
-		ret.append("/");
-		ret.append(to_string(mes));
-		ret.append("/");
-		ret.append(to_string(ano));
-		return ret;
-	}
+    bool operator<(const Data& outraData) const {
+        if (ano < outraData.ano)
+            return true;
+        if (ano > outraData.ano)
+            return false;
+        if (mes < outraData.mes)
+            return true;
+        if (mes > outraData.mes)
+            return false;
+        return dia < outraData.dia;
+    }
+
+    bool operator>(const Data& outraData) const {
+        return outraData < *this;
+    }
 };
-
 class Lista
 {
 public:
@@ -98,18 +64,9 @@ public:
 	virtual void mostraMaior() = 0;
 
 
-    virtual ~Lista() {}
-	
-    Data encontraMediana(vector<Data> valores) {
-       sort(valores.begin(), valores.end());
 
-        int meio = valores.size() / 2;
-        if (valores.size() % 2 == 0) {
-            return valores[meio - 1];
-        } else {
-            return valores[meio];
-        }
-    }
+	
+
 	
 };
 
@@ -217,15 +174,27 @@ public:
 	}
 
 	void mostraMediana() override {
-        cout << "A mediana da lista de datas e: " << encontraMediana(listaDatas).toString() << endl;
+
+		sort(listaDatas.begin(), listaDatas.end());
+
+        int meio = listaDatas.size() / 2;
+        if (listaDatas.size() % 2 == 0) {
+        	cout << "A mediana da lista de datas: " << listaDatas[meio - 1].toString() << endl;
+        } else {
+            cout << "A mediana da lista de datas: " << listaDatas[meio - 1].toString() << endl;
+
+        }
     }
 	void mostraMenor()
 	{
-		cout << "Aqui vai mostrar a primeira data cronologicamente" << endl;
+		sort(listaDatas.begin(), listaDatas.end());
+
+       	cout << "A primeira data cronologicamente: " << listaDatas[0].toString() << endl;
 	}
 	void mostraMaior()
 	{
-		cout << "aqui vai mostrar a ultima data cronologicamente" << endl;
+		sort(listaDatas.begin(), listaDatas.end());
+		cout << "A ultima data cronologicamente: " << listaDatas[listaDatas.size() - 1].toString() << endl;
 	}
 };
 
@@ -309,6 +278,7 @@ int main()
 
 	for (Lista *l : listaDeListas)
 	{
+		cout << endl << endl;
 		l->mostraMediana();
 		l->mostraMenor();
 		l->mostraMaior();
