@@ -63,7 +63,7 @@ public:
 	virtual void mostraMenor() = 0;
 	virtual void mostraMaior() = 0;
 	virtual void listaN(int N) = 0;
-	virtual void listarEmOrdem();
+	//virtual void listarEmOrdem();
 
 	
 };
@@ -244,64 +244,190 @@ public:
 	}
 };
 
-class ListaSalarios
-{
+class ListaSalarios : public Lista {
 	vector<float> lista;
-
-public:
+	
+	public:
+	int qtd;
+	
 	/*
 	O m�todo abaixo pergunta ao usu�rios quantos
 	elementos v�o existir na lista e depois
 	solicita a digita��o de cada um deles
-	*/
-	void entradaDeDados()
-	{
+	*/	
+	void entradaDeDados() override {
+		cout << "Informe a quantidades de salarios : " << endl;
+		cin >> qtd;
+		cin.ignore();
+
+		for (int i = 0; i < qtd; i++)
+		{
+			float salario;
+			cout << "Informe o salario numero: " << i + 1 << ": ";
+			cin >> salario;
+			lista.push_back(salario);
+			
+		}
+
+	}
+			
+	void mostraMediana()override {
+		
+		if (lista.size() % 2 == 0)
+		{
+			sort(lista.begin(), lista.end());
+
+			vector<float>::iterator it;
+			it = lista.begin();
+			advance(it, (lista.size() / 2) - 1);
+
+			cout << "A mediana da lista dos salarios é: " << *it << endl;
+		}
+		else
+		{
+			sort(lista.begin(), lista.end());
+			vector<float>::iterator it;
+			it = lista.begin();
+			advance(it, (lista.size() / 2));
+
+			cout << "A mediana da lista de salarios é: " << *it << endl;
+		}
+
+	}
+	
+	void mostraMenor()override {
+	
+		sort(lista.begin(), lista.end());
+
+       	cout << "O primeiro Salário cronologicamente: " << lista[0] << endl;
 	}
 
-	void mostraMediana()
-	{
-		cout << "Aqui vai mostrar a mediana da lista de salarios" << endl;
+
+	
+	void mostraMaior()override {
+		
+		sort(lista.begin(), lista.end());
+
+		cout << "O ultimo Salário cronologicamente: " << lista[lista.size() - 1]<< endl;
 	}
 
-	void mostraMenor()
-	{
-		cout << "Aqui vai mostrar o menor dos salarios" << endl;
+	void listaN (int N) override{
+		int count = 0;
+		for (auto it= lista.begin();it != lista.end(); it++){
+			count += 1;
+			if (count <= N){
+				cout << *it <<endl;
+
+			}else{
+				return;
+			}
+
+		}
+		
 	}
-	void mostraMaior()
-	{
-		cout << "aqui vai mostrar o maior dos salarios" << endl;
+	void listaControlada (){
+		int qtd = 0;
+		cout << "informe quantos salarios deseja exibir: ";
+		cin >> qtd;
+		cout << endl << endl;
+
+		listaN(qtd);
+	
 	}
 };
 
-class ListaIdades
-{
+
+class ListaIdades  : public Lista{
 	vector<int> lista;
-
-public:
+	
+	public:
+	int qtd;
+	
 	/*
-O m�todo abaixo pergunta ao usu�rios quantos
-elementos v�o existir na lista e depois
-solicita a digita��o de cada um deles
-*/
-	void entradaDeDados()
-	{
+	O m�todo abaixo pergunta ao usu�rios quantos
+	elementos v�o existir na lista e depois
+	solicita a digita��o de cada um deles
+	*/	
+	void entradaDeDados()override {
+		cout << "Informe a quantidades de idades : " << endl;
+		cin >> qtd;
+		cin.ignore();
+
+		for (int i = 0; i < qtd; i++)
+		{
+			int idade;
+			cout << "Informe a idade  numero: " << i + 1 << ": ";
+			cin >> idade;
+			lista.push_back(idade);
+			
+		}
+
+	}
+			
+	void mostraMediana() override{
+		
+		if (lista.size() % 2 == 0)
+		{
+			sort(lista.begin(), lista.end());
+
+			vector<int>::iterator it;
+			it = lista.begin();
+			advance(it, (lista.size() / 2) - 1);
+
+			cout << "A mediana da lista de idades é : " << *it << endl;
+		}
+		else
+		{
+			sort(lista.begin(), lista.end());
+			vector<int>::iterator it;
+			it = lista.begin();
+			advance(it, (lista.size() / 2));
+
+			cout << "A mediana da lista de idades é: " << *it << endl;
+		}
+
+	}
+	
+	void mostraMenor()override {
+	
+		sort(lista.begin(), lista.end());
+
+       	cout << "A primeira idade cronologicamente: " << lista[0] << endl;
 	}
 
-	void mostraMediana()
-	{
-		cout << "Aqui vai mostrar a mediana da lista de idades" << endl;
+
+	
+	void mostraMaior()override {
+		
+		sort(lista.begin(), lista.end());
+
+		cout << "A primeira idade cronologicamente: " << lista[lista.size() - 1]<< endl;
 	}
 
-	void mostraMenor()
-	{
-		cout << "Aqui vai mostrar a menor das idades" << endl;
+	void listaN (int N) override{
+		int count = 0;
+		for (auto it= lista.begin();it != lista.end(); it++){
+			count += 1;
+			if (count <= N){
+				cout << *it <<endl;
+
+			}else{
+				return;
+			}
+
+		}
+		
 	}
-	void mostraMaior()
-	{
-		cout << "aqui vai mostrar a maior das idades" << endl;
+	void listaControlada (){
+		int qtd = 0;
+		cout << "informe quantas idades deseja exibir: ";
+		cin >> qtd;
+		cout << endl << endl;
+
+		listaN(qtd);
+	
 	}
 };
-
 int main()
 {
 	vector<Lista *> listaDeListas;
@@ -317,13 +443,17 @@ int main()
 	listaDatas.listaControlada();
 
 
-	// ListaSalarios listaSalarios;
-	// listaSalarios.entradaDeDados();
-	// listaDeListas.push_back(&listaSalarios);
+	ListaSalarios listaSalarios;
+	listaSalarios.entradaDeDados();
+	listaDeListas.push_back(&listaSalarios);
+	listaSalarios.listaControlada();
 
-	// ListaIdades listaIdades;
-	// listaIdades.entradaDeDados();
-	// listaDeListas.push_back(&listaIdades);
+	ListaIdades listaIdades;
+	listaIdades.entradaDeDados();
+	listaDeListas.push_back(&listaIdades);
+	listaIdades.listaControlada();
+
+
 	cout << endl << "--- Listagem geral ---" <<endl;
 
 	for (Lista *l : listaDeListas)
