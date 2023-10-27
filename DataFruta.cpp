@@ -124,7 +124,7 @@ class ListaSalarios : public Lista {
 	}
 			
 	void mostraMediana() {
-		cout << "Aqui vai mostrar a mediana da lista de salarios" << endl;
+		
 		if (lista.size() % 2 == 0)
 		{
 			sort(lista.begin(), lista.end());
@@ -148,52 +148,101 @@ class ListaSalarios : public Lista {
 	}
 	
 	void mostraMenor() {
-		cout << "Aqui vai mostrar o menor dos salarios" << endl;
+	
+		sort(lista.begin(), lista.end());
 
-		
+       	cout << "o primeiro Salário cronologicamente: " << lista[0] << endl;
 	}
+
+
+	
 	void mostraMaior() {
-		cout << "aqui vai mostrar o maior dos salarios" << endl;
+		
+		sort(lista.begin(), lista.end());
+
+		cout << "o ultimo Salário cronologicamente: " << lista[lista.size() - 1]<< endl;
 	}
 };
 
 
-class ListaIdades  {
+class ListaIdades  : public Lista{
 	vector<int> lista;
 	
 	public:
-		
-		/*
+	int qtd;
+	
+	/*
 	O m�todo abaixo pergunta ao usu�rios quantos
 	elementos v�o existir na lista e depois
 	solicita a digita��o de cada um deles
 	*/	
 	void entradaDeDados() {
-		
+		cout << "Informe a quantidades de idades : " << endl;
+		cin >> qtd;
+		cin.ignore();
+
+		for (int i = 0; i < qtd; i++)
+		{
+			int idade;
+			cout << "Informe a idade  numero: " << i + 1 << ": ";
+			cin >> idade;
+			lista.push_back(idade);
+			
+		}
+
 	}
-	
+			
 	void mostraMediana() {
-		cout << "Aqui vai mostrar a mediana da lista de idades" << endl;
+		
+		if (lista.size() % 2 == 0)
+		{
+			sort(lista.begin(), lista.end());
+
+			vector<int>::iterator it;
+			it = lista.begin();
+			advance(it, (lista.size() / 2) - 1);
+
+			cout << "A mediana da lista de idades é : " << *it << endl;
+		}
+		else
+		{
+			sort(lista.begin(), lista.end());
+			vector<int>::iterator it;
+			it = lista.begin();
+			advance(it, (lista.size() / 2));
+
+			cout << "A mediana da lista de idades é: " << *it << endl;
+		}
+
 	}
 	
 	void mostraMenor() {
-		cout << "Aqui vai mostrar a menor das idades" << endl;
+	
+		sort(lista.begin(), lista.end());
+
+       	cout << "a primeira idade cronologicamente: " << lista[0] << endl;
 	}
+
+
+	
 	void mostraMaior() {
-		cout << "aqui vai mostrar a maior das idades" << endl;
+		
+		sort(lista.begin(), lista.end());
+
+		cout << "a primeira idade cronologicamente: " << lista[lista.size() - 1]<< endl;
 	}
 };
 
 int main () {
 	vector<Lista*> listaDeListas;
 	
-	ListaNomes listaNomes;
+	/*ListaNomes listaNomes;
 	listaNomes.entradaDeDados();
 	listaDeListas.push_back(&listaNomes);
 	
 	ListaDatas listaDatas;
 	listaDatas.entradaDeDados();
-	listaDeListas.push_back(&listaDatas);
+	listaDeListas.push_back(&listaDatas); */
 	
 	ListaSalarios listaSalarios;
 	listaSalarios.entradaDeDados();
@@ -208,8 +257,9 @@ int main () {
 		l->mostraMenor();
 		l->mostraMaior();
 	}
-	..
 
+
+return 0 ;
 	
 }
     
